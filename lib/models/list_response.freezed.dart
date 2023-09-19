@@ -158,7 +158,7 @@ class _$_ListResponse implements _ListResponse {
       @JsonKey(name: "per_page") this.perPage,
       this.total,
       @JsonKey(name: "total_pages") this.totalPages,
-      final List<UserData>? data})
+      required final List<UserData>? data})
       : _data = data;
 
   factory _$_ListResponse.fromJson(Map<String, dynamic> json) =>
@@ -227,7 +227,7 @@ abstract class _ListResponse implements ListResponse {
       @JsonKey(name: "per_page") final int? perPage,
       final int? total,
       @JsonKey(name: "total_pages") final int? totalPages,
-      final List<UserData>? data}) = _$_ListResponse;
+      required final List<UserData>? data}) = _$_ListResponse;
 
   factory _ListResponse.fromJson(Map<String, dynamic> json) =
       _$_ListResponse.fromJson;

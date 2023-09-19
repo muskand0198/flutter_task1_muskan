@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_task1_muskan/screens/dashboard_screen.dart';
 import 'package:flutter_task1_muskan/screens/registration_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_task1_muskan/screens/login_screen.dart';
-import 'package:flutter_task1_muskan/providers/shared_preference_provider.dart';
 
 class MyRouter{
 
-  static var _isLogin;
+  static var _isLogin = false;
   MyRouter({required bool isLogin}){
     _isLogin = isLogin;
   }
@@ -21,20 +18,20 @@ class MyRouter{
     routes: [
       GoRoute(
         name: registrationScreen,
-        path: '/registrationScreen',
+        path: registrationScreen,
         builder: (context, state) => RegistrationScreen(),
       ),
 
       GoRoute(
         name: loginScreen,
-        path: '/',
-        builder: (context, state) => LoginScreen(),
+        path: loginScreen,
+        builder: (context, state) => const LoginScreen(),
       ),
 
       GoRoute(
         name: dashboardScreen,
-        path: '/dashboardScreen',
-        builder: (context, state) => DashboardScreen(),
+        path: dashboardScreen,
+        builder: (context, state) => const DashboardScreen(),
       ),
     ],
     redirect: (context, state){

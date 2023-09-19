@@ -12,7 +12,7 @@ void main() async {
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
       ],
-      child: MyApp()));
+      child: const MyApp()));
 }
 
 class MyApp extends ConsumerWidget {

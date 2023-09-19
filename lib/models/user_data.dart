@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'user_data.freezed.dart';
 
@@ -10,8 +9,8 @@ class UserData with _$UserData {
   const factory UserData({
     int? id,
     String? email,
-    String? first_name,
-    String? last_name,
+    @JsonKey(name: "first_name")String? firstName,
+    @JsonKey(name: "last_name")String? lastName,
     String? avatar
   }) = _UserData;
 

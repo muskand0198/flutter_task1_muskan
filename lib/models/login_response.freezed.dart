@@ -108,7 +108,7 @@ class __$$_LoginResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_LoginResponse implements _LoginResponse {
-  const _$_LoginResponse({this.id, this.token});
+  const _$_LoginResponse({this.id, required this.token});
 
   factory _$_LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$$_LoginResponseFromJson(json);
@@ -151,7 +151,7 @@ class _$_LoginResponse implements _LoginResponse {
 }
 
 abstract class _LoginResponse implements LoginResponse {
-  const factory _LoginResponse({final int? id, final String? token}) =
+  const factory _LoginResponse({final int? id, required final String? token}) =
       _$_LoginResponse;
 
   factory _LoginResponse.fromJson(Map<String, dynamic> json) =

@@ -1,68 +1,66 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-
 import '../../models/list_response.dart';
 import '../../models/login_response.dart';
 import '../../models/user_data.dart';
 
 class DioClient{
   final Dio _dio = Dio();
-  final _base_url = "https://reqres.in/api";
+  final _baseUrl = "https://reqres.in/api";
 
   Future<LoginResponse> login(Map<String, dynamic> userData) async {
     // Uri uri = Uri.parse("https://reqres.in/api/login");
     try {
-      final response = await _dio.post("$_base_url/login", data: userData);
+      final response = await _dio.post("$_baseUrl/login", data: userData);
 
       if (response.statusCode == 200) {
         final body = response.data;
-        print("$body");
+        // print("Login body is $body");
         return LoginResponse.fromJson(body);
       } else {
-        print("${response.statusMessage}");
+        // print("Login error is${response.statusMessage}");
         throw Exception("Something went wrong!!");
       }
     }catch(e){
+      // print("Login error is $e");
       throw Exception("$e");
     }
   }
 
   Future<LoginResponse> register(Map<String, dynamic> userData) async {
     try {
-      final response = await _dio.post("$_base_url/register", data: userData);
+      final response = await _dio.post("$_baseUrl/register", data: userData);
 
-      print("Response Status code is ${response.statusCode}");
+      // print("Response Status code is ${response.statusCode}");
       if (response.statusCode == 200) {
         final body = response.data;
-        print("Body is ${LoginResponse.fromJson(body)}");
+        // print("Body is ${LoginResponse.fromJson(body)}");
         return LoginResponse.fromJson(body);
       } else {
-        print("Error is there");
+        // print("Error is there");
         throw Exception("Something went wrong!!");
       }
     }catch(e){
-      print("Dio Error $e");
+      // print("Dio Error $e");
       throw Exception("Something went wrong!!");
     }
   }
 
   Future<List<UserData>?> getUsersList() async {
     try {
-      final response = await _dio.get("$_base_url/users");
+      final response = await _dio.get("$_baseUrl/users");
 
-      print("Response Status code is ${response.statusCode}");
+      // print("Response Status code is ${response.statusCode}");
       if (response.statusCode == 200) {
         final body = response.data;
         final result = ListResponse.fromJson(body).data;
-        print("Body is ${ListResponse.fromJson(body)}");
+        // print("Body is ${ListResponse.fromJson(body)}");
         return result;
       } else {
-        print("Error is there");
+        // print("Error is there");
         throw Exception("Something went wrong!!");
       }
     }catch(e){
-      print("Dio Error $e");
+      // print("Dio Error $e");
       throw Exception("Something went wrong!!");
     }
   }

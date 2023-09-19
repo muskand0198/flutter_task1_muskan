@@ -15,6 +15,14 @@ class DashboardScreen extends ConsumerStatefulWidget {
 }
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+
+  @override
+  void dispose() {
+    super.dispose();
+    ref.invalidate(sharedUtilityProvider);
+    ref.invalidate(dashboardProvider);
+  }
+
   @override
   Widget build(BuildContext context) {
     MyResponse response = ref.watch(dashboardProvider);
@@ -36,18 +44,18 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         ),
         body: response.when(
           initial: () {
-            print("Dashboard Initial");
-            return showLoader(); // Widget for initial state
+            // print("Dashboard Initial");
+            return showLoader();
           },
           success: (data1) {
-            print("Dashboard Success $data1");
+            // print("Dashboard Success $data1");
             final data = data1 as List<UserData>;
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
                 final item = data[index];
                 return ListTile(
-                  title: Text(item.first_name ?? ""),
+                  title: Text(item.firstName ?? ""),
                   subtitle: Text(item.email ?? ""),
                   leading: Image.network(item.avatar ??
                       "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif"),
@@ -57,13 +65,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             );
           },
           loading: () {
-            print("Dashboard loading");
-            return showLoader(); // Widget for loading state
+            // print("Dashboard loading");
+            return showLoader();
           },
           error: (error) {
-            print("Dashboard Error $error");
+            // print("Dashboard Error $error");
             return Text(
-                'Error: $error'); // Widget for error state, passing error message
+                'Error: $error');
           },
         ));
   }
@@ -105,35 +113,4 @@ void showSnackbar(BuildContext context, String text) {
     duration: const Duration(seconds: 5),
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-}
-
-Widget _buildWidgetBasedOnResult(MyResponse result) {
-  return result.when(
-    initial: () {
-      return showLoader(); // Widget for initial state
-    },
-    success: (data1) {
-      final data = data1 as List<UserData>;
-      return ListView.builder(
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          final item = data[index];
-          return ListTile(
-            title: Text(item.first_name ?? ""),
-            subtitle: Text(item.email ?? ""),
-            leading: Image.network(item.avatar ??
-                "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif"),
-            onTap: () {},
-          );
-        },
-      );
-    },
-    loading: () {
-      return showLoader(); // Widget for loading state
-    },
-    error: (error) {
-      return Text(
-          'Error: $error'); // Widget for error state, passing error message
-    },
-  );
 }

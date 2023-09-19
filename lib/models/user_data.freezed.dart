@@ -22,8 +22,10 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
 mixin _$UserData {
   int? get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  String? get first_name => throw _privateConstructorUsedError;
-  String? get last_name => throw _privateConstructorUsedError;
+  @JsonKey(name: "first_name")
+  String? get firstName => throw _privateConstructorUsedError;
+  @JsonKey(name: "last_name")
+  String? get lastName => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,8 +42,8 @@ abstract class $UserDataCopyWith<$Res> {
   $Res call(
       {int? id,
       String? email,
-      String? first_name,
-      String? last_name,
+      @JsonKey(name: "first_name") String? firstName,
+      @JsonKey(name: "last_name") String? lastName,
       String? avatar});
 }
 
@@ -60,8 +62,8 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
   $Res call({
     Object? id = freezed,
     Object? email = freezed,
-    Object? first_name = freezed,
-    Object? last_name = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? avatar = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,13 +75,13 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      first_name: freezed == first_name
-          ? _value.first_name
-          : first_name // ignore: cast_nullable_to_non_nullable
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
-      last_name: freezed == last_name
-          ? _value.last_name
-          : last_name // ignore: cast_nullable_to_non_nullable
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
       avatar: freezed == avatar
           ? _value.avatar
@@ -99,8 +101,8 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
   $Res call(
       {int? id,
       String? email,
-      String? first_name,
-      String? last_name,
+      @JsonKey(name: "first_name") String? firstName,
+      @JsonKey(name: "last_name") String? lastName,
       String? avatar});
 }
 
@@ -117,8 +119,8 @@ class __$$_UserDataCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? email = freezed,
-    Object? first_name = freezed,
-    Object? last_name = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? avatar = freezed,
   }) {
     return _then(_$_UserData(
@@ -130,13 +132,13 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      first_name: freezed == first_name
-          ? _value.first_name
-          : first_name // ignore: cast_nullable_to_non_nullable
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
-      last_name: freezed == last_name
-          ? _value.last_name
-          : last_name // ignore: cast_nullable_to_non_nullable
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
       avatar: freezed == avatar
           ? _value.avatar
@@ -150,7 +152,11 @@ class __$$_UserDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserData implements _UserData {
   const _$_UserData(
-      {this.id, this.email, this.first_name, this.last_name, this.avatar});
+      {this.id,
+      this.email,
+      @JsonKey(name: "first_name") this.firstName,
+      @JsonKey(name: "last_name") this.lastName,
+      this.avatar});
 
   factory _$_UserData.fromJson(Map<String, dynamic> json) =>
       _$$_UserDataFromJson(json);
@@ -160,15 +166,17 @@ class _$_UserData implements _UserData {
   @override
   final String? email;
   @override
-  final String? first_name;
+  @JsonKey(name: "first_name")
+  final String? firstName;
   @override
-  final String? last_name;
+  @JsonKey(name: "last_name")
+  final String? lastName;
   @override
   final String? avatar;
 
   @override
   String toString() {
-    return 'UserData(id: $id, email: $email, first_name: $first_name, last_name: $last_name, avatar: $avatar)';
+    return 'UserData(id: $id, email: $email, firstName: $firstName, lastName: $lastName, avatar: $avatar)';
   }
 
   @override
@@ -178,17 +186,17 @@ class _$_UserData implements _UserData {
             other is _$_UserData &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.first_name, first_name) ||
-                other.first_name == first_name) &&
-            (identical(other.last_name, last_name) ||
-                other.last_name == last_name) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
             (identical(other.avatar, avatar) || other.avatar == avatar));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, email, first_name, last_name, avatar);
+      Object.hash(runtimeType, id, email, firstName, lastName, avatar);
 
   @JsonKey(ignore: true)
   @override
@@ -208,8 +216,8 @@ abstract class _UserData implements UserData {
   const factory _UserData(
       {final int? id,
       final String? email,
-      final String? first_name,
-      final String? last_name,
+      @JsonKey(name: "first_name") final String? firstName,
+      @JsonKey(name: "last_name") final String? lastName,
       final String? avatar}) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
@@ -219,9 +227,11 @@ abstract class _UserData implements UserData {
   @override
   String? get email;
   @override
-  String? get first_name;
+  @JsonKey(name: "first_name")
+  String? get firstName;
   @override
-  String? get last_name;
+  @JsonKey(name: "last_name")
+  String? get lastName;
   @override
   String? get avatar;
   @override

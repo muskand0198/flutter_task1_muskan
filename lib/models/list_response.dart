@@ -11,7 +11,7 @@ class ListResponse with _$ListResponse{
     @JsonKey(name: "per_page") int? perPage,
     int? total,
     @JsonKey(name: "total_pages")int? totalPages,
-    List<UserData>? data
+    required List<UserData>? data
   }) = _ListResponse;
 
   factory ListResponse.fromJson(Map<String, dynamic> json) => _$ListResponseFromJson(json);

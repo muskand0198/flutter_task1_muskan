@@ -1,13 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_task1_muskan/models/response.dart';
 import 'package:flutter_task1_muskan/network/repository/register_repository.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthState extends StateNotifier<MyResponse> {
   Ref ref;
 
-  AuthState({required this.ref}) : super(MyResponse.initial());
+  AuthState({required this.ref}) : super(const MyResponse.initial());
 
   Future<MyResponse> register(Map<String, dynamic> data) async {
     state = const MyResponse.loading();
@@ -27,6 +25,4 @@ final authStateProvider = StateNotifierProvider<AuthState, MyResponse>((ref) {
   return AuthState(ref: ref);
 });
 
-// final sharedPrefs =
-// FutureProvider<SharedPreferences>((_) async => await SharedPreferences.getInstance());
 
