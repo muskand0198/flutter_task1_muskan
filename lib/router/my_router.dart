@@ -6,8 +6,10 @@ import 'package:flutter_task1_muskan/screens/login_screen.dart';
 class MyRouter{
 
   static var _isLogin = false;
+  // static var _isDashboard = false;
   MyRouter({required bool isLogin}){
     _isLogin = isLogin;
+    // _isDashboard = isDashboard;
   }
 
   static String registrationScreen = "/registrationScreen";
@@ -19,7 +21,7 @@ class MyRouter{
       GoRoute(
         name: registrationScreen,
         path: registrationScreen,
-        builder: (context, state) => RegistrationScreen(),
+        builder: (context, state) => const RegistrationScreen(),
       ),
 
       GoRoute(

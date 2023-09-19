@@ -33,10 +33,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           actions: [
             IconButton(
               onPressed: () async {
-                await ref
+               await ref
                     .read(sharedUtilityProvider)
                     .logout()
-                    .then((value) => {context.goNamed(MyRouter.loginScreen)});
+                    .then((value) => {
+                      MyRouter(isLogin: true),
+                      context.goNamed(MyRouter.loginScreen)
+                    });
               },
               icon: const Icon(Icons.logout),
             )
