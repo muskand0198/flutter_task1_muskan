@@ -22,6 +22,15 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ref.read(dashboardStateProvider.notifier).getUsersList();
+    });
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     final response = ref.watch(dashboardStateProvider);
     return Scaffold(

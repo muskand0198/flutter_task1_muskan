@@ -10,7 +10,6 @@ class DashboardState extends _$DashboardState {
 
   @override
   FutureOr<List<UserData>?> build() {
-    getUsersList();
     return null;
   }
 
