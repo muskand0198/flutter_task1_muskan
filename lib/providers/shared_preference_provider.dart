@@ -5,9 +5,11 @@ final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError();
 });
 
-final sharedUtilityProvider = Provider<SharedUtility>((ref) {
+final sharedUtilityProvider = Provider.autoDispose<SharedUtility>((ref) {
   final sharedPrefs = ref.watch(sharedPreferencesProvider);
-  return SharedUtility(sharedPreferences: sharedPrefs);
+  final sharedUtility = SharedUtility(sharedPreferences: sharedPrefs);
+  ref.onDispose(() => sharedUtility);
+  return sharedUtility;
 });
 
 class SharedUtility {

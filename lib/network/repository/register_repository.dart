@@ -17,6 +17,8 @@ class RegisterRepository{
   }
 }
 
-final userRepositoryProvider = Provider<RegisterRepository>((ref) {
-  return RegisterRepository(dioClient: ref.watch(dioClientProvider));
+final userRepositoryProvider = Provider.autoDispose<RegisterRepository>((ref) {
+  final registerRepo = RegisterRepository(dioClient: ref.watch(dioClientProvider));
+  ref.onDispose(() => registerRepo);
+  return registerRepo;
 });

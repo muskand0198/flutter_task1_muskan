@@ -16,6 +16,8 @@ class DashboardRepository{
   }
 }
 
-final dashboardRepositoryProvider = Provider<DashboardRepository>((ref) {
-  return DashboardRepository(dioClient: ref.watch(dioClientProvider));
+final dashboardRepositoryProvider = Provider.autoDispose<DashboardRepository>((ref) {
+  final dashboardRepo = DashboardRepository(dioClient: ref.watch(dioClientProvider));
+  ref.onDispose(() => dashboardRepo);
+  return dashboardRepo;
 });

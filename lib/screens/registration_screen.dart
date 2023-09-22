@@ -26,7 +26,6 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
     emailTextController.dispose();
     passwordTextController.dispose();
     ref.invalidate(authStateProvider);
-    ref.invalidate(sharedUtilityProvider);
   }
 
   @override

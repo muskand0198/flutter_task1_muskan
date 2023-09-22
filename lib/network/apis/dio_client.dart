@@ -71,7 +71,8 @@ class DioClient {
   }
 }
 
-final dioClientProvider = Provider<DioClient>((ref) {
+final dioClientProvider = Provider.autoDispose<DioClient>((ref) {
   final dio = DioClient();
+  ref.onDispose(() => dio);
   return dio;
 });

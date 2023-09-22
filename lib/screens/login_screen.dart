@@ -26,7 +26,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     emailTextController.dispose();
     passwordTextController.dispose();
     ref.invalidate(loginStateProvider);
-    ref.invalidate(sharedUtilityProvider);
   }
 
   @override

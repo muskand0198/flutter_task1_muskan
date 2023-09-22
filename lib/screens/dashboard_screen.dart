@@ -17,7 +17,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   @override
   void dispose() {
     super.dispose();
-    ref.invalidate(sharedUtilityProvider);
     ref.invalidate(dashboardStateProvider);
   }
 

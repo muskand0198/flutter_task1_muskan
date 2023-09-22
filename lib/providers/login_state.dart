@@ -10,7 +10,6 @@ class LoginState extends _$LoginState {
   // Ref ref;
   //
   // LoginState({required this.ref}) : super(const MyResponse.initial());
-
   @override
   FutureOr<LoginResponse?> build(){
     return null;
