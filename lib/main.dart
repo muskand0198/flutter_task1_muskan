@@ -20,15 +20,13 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    var isLogin = ref.read(sharedUtilityProvider).getToken()=="";
     return MaterialApp.router(
       title: 'Flutter Task1',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerConfig: MyRouter(isLogin: isLogin).router,
+      routerConfig: MyRouter().router,
     );
   }
 }

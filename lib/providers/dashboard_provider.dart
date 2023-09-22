@@ -1,29 +1,39 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_task1_muskan/models/response.dart';
+import 'package:flutter_task1_muskan/models/user_data.dart';
 import 'package:flutter_task1_muskan/network/repository/dashboard_repo.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class DashboardState extends StateNotifier<MyResponse> {
-  Ref ref;
+part 'dashboard_provider.g.dart';
 
-  DashboardState({required this.ref}) : super(const MyResponse.initial()){
+@riverpod
+class DashboardState extends _$DashboardState {
+
+  @override
+  FutureOr<List<UserData>?> build() {
     getUsersList();
+    return null;
   }
 
-  Future<MyResponse> getUsersList() async {
-    state = const MyResponse.loading();
+  // Ref ref;
+  //
+  // DashboardState({required this.ref}) : super(const MyResponse.initial()){
+  //   getUsersList();
+
+  Future<List<UserData>?> getUsersList() async {
+    state = const AsyncValue.loading();
     try {
       var result = await ref.read(dashboardRepositoryProvider).getUsersList();
 
-      state = MyResponse.success(result);
-      return MyResponse.success(result);
-    } catch (e) {
-      state = MyResponse.error("$e");
-      return MyResponse.error("$e");
+      state = AsyncValue.data(result);
+      return result;
+    } catch (e, s) {
+      state = AsyncValue.error("$e", s);
+      return null;
     }
   }
 }
 
-final dashboardProvider = StateNotifierProvider<DashboardState, MyResponse>((ref) {
-  return DashboardState(ref: ref);
-});
+// final dashboardProvider = StateNotifierProvider<DashboardState, MyResponse>((ref) {
+//   return DashboardState(ref: ref);
+// });
 

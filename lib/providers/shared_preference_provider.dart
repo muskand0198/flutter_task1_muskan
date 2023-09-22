@@ -17,7 +17,7 @@ class SharedUtility {
 
   final SharedPreferences sharedPreferences;
 
-  String getToken() {
+  String getToken(){
     return sharedPreferences.getString("token") ?? "";
   }
 

@@ -4,9 +4,13 @@ import '../../models/login_response.dart';
 
 class RegisterRepository{
 
+  RegisterRepository({required this.dioClient});
+
+  final DioClient dioClient;
+
   Future<LoginResponse> register(Map<String, dynamic> data){
     try {
-      return DioClient().register(data);
+      return dioClient.register(data);
     }catch(e){
       throw Exception("Something went wrong!!");
     }
@@ -14,5 +18,5 @@ class RegisterRepository{
 }
 
 final userRepositoryProvider = Provider<RegisterRepository>((ref) {
-  return RegisterRepository();
+  return RegisterRepository(dioClient: ref.watch(dioClientProvider));
 });

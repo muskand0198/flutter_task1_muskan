@@ -32,23 +32,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(loginStateProvider, (previous, next) {
-      next.when(initial: () {
-            // print("on Register");
-        showLoader();
-      }, success: (data) {
-        ref.read(sharedUtilityProvider).setToken(
-            token: (data as LoginResponse).token ?? "");
-        showSnackbar(
-            context, "Logged in successfully");
+      next.when(data: (data) {
+        ref
+            .read(sharedUtilityProvider)
+            .setToken(token: (data as LoginResponse).token ?? "");
+        showSnackbar(context, "Logged in successfully");
         emailTextController.clear();
         passwordTextController.clear();
         context.go(MyRouter.dashboardScreen);
       }, loading: () {
         showLoader();
-      }, error: (msg) {
+      }, error: (msg, s) {
         showSnackbar(context, "Something went wrong!!");
       });
-      });
+    });
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -82,9 +79,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'This field can\'t be empty';
-                    }else if(!value.contains("@")) {
+                    } else if (!value.contains("@")) {
                       return 'Enter valid mail';
-                    }return null;
+                    }
+                    return null;
                   },
                 ),
               ),
@@ -116,9 +114,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           "email": emailTextController.text,
                           "password": passwordTextController.text
                         };
-                        ref
-                            .read(loginStateProvider.notifier)
-                            .login(user);
+                        ref.read(loginStateProvider.notifier).login(user);
                       }
                     },
                     child: const Center(
@@ -129,7 +125,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               fontWeight: FontWeight.w900)),
                     )),
               ),
-
               Center(
                 child: TextButton(
                   child: const Text(
@@ -143,13 +138,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   },
                 ),
               )
-
             ],
           ),
         ),
       ),
     );
-
   }
 
   // bool isValidate() {

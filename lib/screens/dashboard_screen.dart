@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_task1_muskan/models/response.dart';
-import 'package:flutter_task1_muskan/models/user_data.dart';
 import 'package:flutter_task1_muskan/providers/dashboard_provider.dart';
 import 'package:flutter_task1_muskan/providers/shared_preference_provider.dart';
 import 'package:flutter_task1_muskan/router/my_router.dart';
@@ -20,12 +18,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   void dispose() {
     super.dispose();
     ref.invalidate(sharedUtilityProvider);
-    ref.invalidate(dashboardProvider);
+    ref.invalidate(dashboardStateProvider);
   }
 
   @override
   Widget build(BuildContext context) {
-    MyResponse response = ref.watch(dashboardProvider);
+    final response = ref.watch(dashboardStateProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Dashboard"),
@@ -37,7 +35,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     .read(sharedUtilityProvider)
                     .logout()
                     .then((value) => {
-                      MyRouter(isLogin: true),
+                      // MyRouter(isLogin: true),
                       context.goNamed(MyRouter.loginScreen)
                     });
               },
@@ -46,32 +44,32 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           ],
         ),
         body: response.when(
-          initial: () {
-            // print("Dashboard Initial");
-            return showLoader();
-          },
-          success: (data1) {
+          data: (data1) {
             // print("Dashboard Success $data1");
-            final data = data1 as List<UserData>;
-            return ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                final item = data[index];
-                return ListTile(
-                  title: Text(item.firstName ?? ""),
-                  subtitle: Text(item.email ?? ""),
-                  leading: Image.network(item.avatar ??
-                      "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif"),
-                  onTap: () {},
-                );
-              },
-            );
+            final data = data1;
+            if(data != null) {
+              return ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  final item = data[index];
+                  return ListTile(
+                    title: Text(item.firstName ?? ""),
+                    subtitle: Text(item.email ?? ""),
+                    leading: Image.network(item.avatar ??
+                        "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif"),
+                    onTap: () {},
+                  );
+                },
+              );
+            }else{
+              return showLoader();
+            }
           },
           loading: () {
             // print("Dashboard loading");
             return showLoader();
           },
-          error: (error) {
+          error: (error, s) {
             // print("Dashboard Error $error");
             return Text(
                 'Error: $error');
@@ -79,30 +77,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         ));
   }
 }
-
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//       title: Text("Dashboard"),
-//       backgroundColor: Colors.blue,
-//     ),
-//     body: ProviderListenable<MyResponse>(
-//       future: _getData(),
-//       builder: (context, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return CircularProgressIndicator(); // Show a loading indicator
-//         } else if (snapshot.hasError) {
-//           return Text('Error: ${snapshot.error}');
-//         } else {
-//           // Use the result to decide what to display
-//           final result = snapshot.data;
-//           return _buildWidgetBasedOnResult(result!);
-//         }
-//       },
-//     ),
-//   );
-// }
 
 Widget showLoader() {
   return const Center(

@@ -4,9 +4,12 @@ import 'package:flutter_task1_muskan/network/apis/dio_client.dart';
 
 class DashboardRepository{
 
+  DashboardRepository({required this.dioClient});
+
+  final DioClient dioClient;
   Future<List<UserData>?> getUsersList(){
     try {
-      return DioClient().getUsersList();
+      return dioClient.getUsersList();
     }catch(e){
       throw Exception("Something went wrong!!");
     }
@@ -14,5 +17,5 @@ class DashboardRepository{
 }
 
 final dashboardRepositoryProvider = Provider<DashboardRepository>((ref) {
-  return DashboardRepository();
+  return DashboardRepository(dioClient: ref.watch(dioClientProvider));
 });

@@ -33,10 +33,8 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
   Widget build(BuildContext context) {
 
     ref.listen(authStateProvider, (previous, next) {
-      next.when(initial: () {
-        // print("on Register");
-        showLoader();
-      }, success: (data) {
+      next.when(
+          data: (data) {
         ref.read(sharedUtilityProvider).setToken(
             token: (data as LoginResponse).token ?? "");
         showSnackbar(
@@ -46,7 +44,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
         context.go(MyRouter.dashboardScreen);
       }, loading: () {
         showLoader();
-      }, error: (msg) {
+      }, error: (msg, s) {
         showSnackbar(context, "Something went wrong!!");
       });
     });

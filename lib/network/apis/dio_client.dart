@@ -1,16 +1,21 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/list_response.dart';
 import '../../models/login_response.dart';
 import '../../models/user_data.dart';
 
-class DioClient{
-  final Dio _dio = Dio();
-  final _baseUrl = "https://reqres.in/api";
+class DioClient {
+  final _dio = Dio();
+  // final _baseUrl = "https://reqres.in/api";
+
+  DioClient() {
+    _dio.options.baseUrl = "https://reqres.in/api";
+  }
 
   Future<LoginResponse> login(Map<String, dynamic> userData) async {
     // Uri uri = Uri.parse("https://reqres.in/api/login");
     try {
-      final response = await _dio.post("$_baseUrl/login", data: userData);
+      final response = await _dio.post("/login", data: userData);
 
       if (response.statusCode == 200) {
         final body = response.data;
@@ -20,7 +25,7 @@ class DioClient{
         // print("Login error is${response.statusMessage}");
         throw Exception("Something went wrong!!");
       }
-    }catch(e){
+    } catch (e) {
       // print("Login error is $e");
       throw Exception("$e");
     }
@@ -28,7 +33,7 @@ class DioClient{
 
   Future<LoginResponse> register(Map<String, dynamic> userData) async {
     try {
-      final response = await _dio.post("$_baseUrl/register", data: userData);
+      final response = await _dio.post("/register", data: userData);
 
       // print("Response Status code is ${response.statusCode}");
       if (response.statusCode == 200) {
@@ -39,7 +44,7 @@ class DioClient{
         // print("Error is there");
         throw Exception("Something went wrong!!");
       }
-    }catch(e){
+    } catch (e) {
       // print("Dio Error $e");
       throw Exception("Something went wrong!!");
     }
@@ -47,7 +52,7 @@ class DioClient{
 
   Future<List<UserData>?> getUsersList() async {
     try {
-      final response = await _dio.get("$_baseUrl/users");
+      final response = await _dio.get("/users");
 
       // print("Response Status code is ${response.statusCode}");
       if (response.statusCode == 200) {
@@ -59,9 +64,14 @@ class DioClient{
         // print("Error is there");
         throw Exception("Something went wrong!!");
       }
-    }catch(e){
+    } catch (e) {
       // print("Dio Error $e");
       throw Exception("Something went wrong!!");
     }
   }
 }
+
+final dioClientProvider = Provider<DioClient>((ref) {
+  final dio = DioClient();
+  return dio;
+});

@@ -1,23 +1,31 @@
 import 'package:flutter_task1_muskan/screens/dashboard_screen.dart';
 import 'package:flutter_task1_muskan/screens/registration_screen.dart';
+import 'package:flutter_task1_muskan/screens/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_task1_muskan/screens/login_screen.dart';
 
 class MyRouter{
 
-  static var _isLogin = false;
+  // static var _isLogin = false;
   // static var _isDashboard = false;
-  MyRouter({required bool isLogin}){
-    _isLogin = isLogin;
+  // MyRouter({required bool isLogin}){
+  //   _isLogin = isLogin;
     // _isDashboard = isDashboard;
-  }
+  // }
 
   static String registrationScreen = "/registrationScreen";
-  static String loginScreen = "/";
+  static String loginScreen = "/loginScreen";
   static String dashboardScreen = "/dashboardScreen";
+  static String splashScreen = "/";
 
   final router = GoRouter(
     routes: [
+      GoRoute(
+        name: splashScreen,
+        path: splashScreen,
+        builder: (context, state) => const SplashScreen(),
+      ),
+
       GoRoute(
         name: registrationScreen,
         path: registrationScreen,
@@ -36,11 +44,11 @@ class MyRouter{
         builder: (context, state) => const DashboardScreen(),
       ),
     ],
-    redirect: (context, state){
-      if(!_isLogin) {
-        return MyRouter.dashboardScreen;
-      }
-      return null;
-    }
+    // redirect: (context, state){
+    //   if(!_isLogin) {
+    //     return MyRouter.dashboardScreen;
+    //   }
+    //   return null;
+    // }
   );
 }
