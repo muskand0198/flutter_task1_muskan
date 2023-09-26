@@ -22,7 +22,18 @@ class DashboardState extends _$DashboardState {
     state = const AsyncValue.loading();
     try {
       var result = await ref.read(dashboardRepositoryProvider).getUsersList();
-
+      // List<UserData>? finalList = [];
+      // if(searchValue.isEmpty) {
+      //   finalList = result ?? [];
+      // }
+      // if(result != null){
+      //   // for(UserData ele in result){
+      //   //   if(ele.email!.contains(searchValue) || ele.firstName!.contains(searchValue)){
+      //   //     finalList.add(ele);
+      //   //   }
+      //   // }
+      //   finalList = result.where((element) => element.firstName!.contains(searchValue) || element.email!.contains(searchValue)).toList();
+      // }
       state = AsyncValue.data(result);
       return result;
     } catch (e, s) {
