@@ -8,9 +8,15 @@ class RegisterRepository{
 
   final DioClient dioClient;
 
-  Future<LoginResponse> register(Map<String, dynamic> data){
+  Future<LoginResponse> register(Map<String, dynamic> data) async{
     try {
-      return dioClient.register(data);
+      final response = await dioClient.register(data);
+      if (response.statusCode == 200) {
+        final body = response.data;
+        return LoginResponse.fromJson(body);
+      } else {
+        throw Exception("Something went wrong!!");
+      }
     }catch(e){
       throw Exception("Something went wrong!!");
     }

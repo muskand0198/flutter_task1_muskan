@@ -6,13 +6,6 @@ import 'package:flutter_task1_muskan/screens/login_screen.dart';
 
 class MyRouter{
 
-  // static var _isLogin = false;
-  // static var _isDashboard = false;
-  // MyRouter({required bool isLogin}){
-  //   _isLogin = isLogin;
-    // _isDashboard = isDashboard;
-  // }
-
   static String registrationScreen = "/registrationScreen";
   static String loginScreen = "/loginScreen";
   static String dashboardScreen = "/dashboardScreen";
@@ -44,11 +37,5 @@ class MyRouter{
         builder: (context, state) => const DashboardScreen(),
       ),
     ],
-    // redirect: (context, state){
-    //   if(!_isLogin) {
-    //     return MyRouter.dashboardScreen;
-    //   }
-    //   return null;
-    // }
   );
 }

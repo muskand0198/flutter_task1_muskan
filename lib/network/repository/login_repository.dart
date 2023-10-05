@@ -7,9 +7,16 @@ class LoginRepository {
 
   final DioClient dioClient;
 
-  Future<LoginResponse> login(Map<String, dynamic> data) {
+  Future<LoginResponse> login(Map<String, dynamic> data) async {
     try {
-      return dioClient.login(data);
+      final response = await dioClient.login(data);
+
+      if (response.statusCode == 200) {
+        final body = response.data;
+        return LoginResponse.fromJson(body);
+      } else {
+        throw Exception("Something went wrong!!");
+      }
     } catch (e) {
       throw Exception("Something went wrong!!");
     }

@@ -15,7 +15,6 @@ class DashboardScreen extends ConsumerStatefulWidget {
   ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   @override
   void dispose() {
@@ -43,7 +42,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           IconButton(
             onPressed: () async {
               await ref.read(sharedUtilityProvider).logout().then((value) => {
-                    // MyRouter(isLogin: true),
                     context.goNamed(MyRouter.loginScreen)
                   });
             },
@@ -53,22 +51,20 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       ),
       body: response.when(
         data: (data) {
-          // print("Dashboard Success $data1");
-          if(data != null){
+          if (data != null) {
             return Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
                   CustomSearchBar(
-                    hintText: "Search",
-                    paddingValue: 14.0,
-                    onChanged: (val) {
-                      ref
-                          .read(changeSearchProvider.notifier)
-                          .update((state) => state = val);
-                    },
-                    leading: const Icon(Icons.search)
-                  ),
+                      hintText: "Search",
+                      paddingValue: 14.0,
+                      onChanged: (val) {
+                        ref
+                            .read(changeSearchProvider.notifier)
+                            .update((state) => state = val);
+                      },
+                      leading: const Icon(Icons.search)),
                   const SizedBox(
                     height: 10.0,
                   ),

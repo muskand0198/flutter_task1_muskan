@@ -144,14 +144,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  // bool isValidate() {
-  //   if (emailTextController.text.isNotEmpty &&
-  //       passwordTextController.text.isNotEmpty) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   void showSnackbar(BuildContext context, String text) {
     final snackBar = SnackBar(
       content: Text(text),
