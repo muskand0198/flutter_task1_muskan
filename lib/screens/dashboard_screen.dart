@@ -34,83 +34,90 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final response = ref.watch(dashboardStateProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Dashboard"),
-        backgroundColor: Colors.blue,
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await ref.read(sharedUtilityProvider).logout().then((value) => {
-                    context.goNamed(MyRouter.loginScreen)
-                  });
-            },
-            icon: const Icon(Icons.logout),
-          )
-        ],
-      ),
-      body: response.when(
-        data: (data) {
-          if (data != null) {
-            return Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  CustomSearchBar(
-                      hintText: "Search",
-                      paddingValue: 14.0,
-                      onChanged: (val) {
-                        ref
-                            .read(changeSearchProvider.notifier)
-                            .update((state) => state = val);
-                      },
-                      leading: const Icon(Icons.search)),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Consumer(builder: (context, ref, child) {
-                    ref.watch(changeSearchProvider);
-                    final searchKey =
-                        ref.read(changeSearchProvider.notifier).state;
-                    final search = data
-                        .where((element) =>
-                            element.email!
-                                .toLowerCase()
-                                .startsWith(searchKey.toLowerCase()) ||
-                            element.firstName!
-                                .toLowerCase()
-                                .startsWith(searchKey.toLowerCase()))
-                        .toList();
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount:
-                            search.isNotEmpty ? search.length : data.length,
-                        itemBuilder: (context, index) {
-                          final finalData = search.isNotEmpty ? search : data;
-                          final item = finalData[index];
-                          return ListTile(
-                            title: Text(item.firstName ?? ""),
-                            subtitle: Text(item.email ?? ""),
-                            leading: Image.network(item.avatar ??
-                                "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif"),
-                            onTap: () {},
-                          );
+
+    return WillPopScope(
+      onWillPop: () async {
+
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Dashboard"),
+          backgroundColor: Colors.blue,
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await ref.read(sharedUtilityProvider).logout().then((value) => {
+                      context.goNamed(MyRouter.loginScreen)
+                    });
+              },
+              icon: const Icon(Icons.logout),
+            )
+          ],
+        ),
+        body: response.when(
+          data: (data) {
+            if (data != null) {
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    CustomSearchBar(
+                        hintText: "Search",
+                        paddingValue: 14.0,
+                        onChanged: (val) {
+                          ref
+                              .read(changeSearchProvider.notifier)
+                              .update((state) => state = val);
                         },
-                      ),
-                    );
-                  })
-                ],
-              ),
-            );
-          }
-          return showLoader();
-        },
-        loading: () {
-          return showLoader();
-        },
-        error: (error, s) {
-          return Text('Error: $error');
-        },
+                        leading: const Icon(Icons.search)),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Consumer(builder: (context, ref, child) {
+                      ref.watch(changeSearchProvider);
+                      final searchKey =
+                          ref.read(changeSearchProvider.notifier).state;
+                      final search = data
+                          .where((element) =>
+                              element.email!
+                                  .toLowerCase()
+                                  .startsWith(searchKey.toLowerCase()) ||
+                              element.firstName!
+                                  .toLowerCase()
+                                  .startsWith(searchKey.toLowerCase()))
+                          .toList();
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount:
+                              search.isNotEmpty ? search.length : data.length,
+                          itemBuilder: (context, index) {
+                            final finalData = search.isNotEmpty ? search : data;
+                            final item = finalData[index];
+                            return ListTile(
+                              title: Text(item.firstName ?? ""),
+                              subtitle: Text(item.email ?? ""),
+                              leading: Image.network(item.avatar ??
+                                  "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif"),
+                              onTap: () {},
+                            );
+                          },
+                        ),
+                      );
+                    })
+                  ],
+                ),
+              );
+            }
+            return showLoader();
+          },
+          loading: () {
+            return showLoader();
+          },
+          error: (error, s) {
+            return Text('Error: $error');
+          },
+        ),
       ),
     );
   }

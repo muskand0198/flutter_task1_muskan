@@ -18,6 +18,11 @@ class DashboardState extends _$DashboardState {
   // DashboardState({required this.ref}) : super(const MyResponse.initial()){
   //   getUsersList();
 
+  void editList(){
+    //change the value
+    getUsersList();
+  }
+
   Future<List<UserData>?> getUsersList() async {
     state = const AsyncValue.loading();
     try {
